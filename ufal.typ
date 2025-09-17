@@ -26,6 +26,9 @@
 
 // ===== SHARED COMPONENTS =====
 
+// State to track the current slide title
+#let slide-title = state("slide-title", none)
+
 /// Creates the UFAL header bar with title and logo
 /// Default settings are optimized for title slides
 #let ufal-header-bar(
@@ -129,7 +132,7 @@
   // Code styling
   show raw: set text(
     font: font-mono,
-    size: 1.25em,
+    size: 1em,
     fill: text-color,
   )
 
@@ -159,14 +162,16 @@
     margin: (top: 2.2cm, bottom: 1.3cm, left: 1.2cm, right: 1.2cm),
     header: [
       #set align(left + top)
-      #ufal-header-bar(
-        title-text: toolbox.current-section,
-        title-size: 25pt,
-        left-padding: 0.1cm,
-        top-padding: 0.5cm,
-        width: 100% + 2.4cm,
-        dx: -1.2cm,
-      )
+      #context [
+        #ufal-header-bar(
+          title-text: slide-title.get(),
+          title-size: 25pt,
+          left-padding: 0.1cm,
+          top-padding: 0.5cm,
+          width: 100% + 2.4cm,
+          dx: -1.2cm,
+        )
+      ]
       #v(-0.5cm)
     ],
     footer: [
@@ -227,10 +232,12 @@
 
 // Override the default slide function to accept title parameter
 #let slide(title: none, body) = {
-  if title != none {
-    toolbox.register-section(title)
-  }
-  polylux-slide(body)
+  polylux-slide[
+    #if title != none {
+      slide-title.update(title)
+    }
+    #body
+  ]
 }
 
 // Title slide
@@ -386,7 +393,7 @@
     ]
   ]
 
-  #toolbox.register-section(title)
+  #slide-title.update(title)
 ]
 
 // ===== HELPER FUNCTIONS =====
@@ -449,4 +456,21 @@
     #v(0.5em)
     #body
   ]
+}
+
+// Source link - small, right-aligned link for referencing sources
+#let source-link(url, display-text: none) = {
+  let link-text = if display-text != none { "source: " + display-text } else { url }
+
+  place(
+    bottom + right,
+    dy: -0.3cm,
+    text(
+      size: 10pt,
+      fill: muted-color,
+      font: font-sans,
+    )[
+      #link(url)[#link-text]
+    ],
+  )
 }

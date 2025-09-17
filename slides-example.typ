@@ -89,7 +89,7 @@
 #part-slide("How to use it?")
 
 #slide(title: "Typst Syntax 101")[
-  You can use Typst's markup syntax for creating slides.
+  You need to use #link("https://typst.app/docs/tutorial/")[Typst markup syntax].
 
   === This is an H3 header.
   - This is a bulleted list.
@@ -102,7 +102,10 @@
 
   ---
 
-  #text(size: 12pt, fill: muted-color)[You can also use advanced Typst features for tweaks.]
+  #text(
+    size: 15pt,
+    fill: muted-color,
+  )[With Typst, you can very easily modify any layout or text properties to your liking.]
 ]
 
 #slide(title: "Slide layouts")[
@@ -121,7 +124,8 @@
 ]
 
 #slide(title: "Working with images")[
-  _[source: Our experiments]_
+
+  #set align(center + horizon)
 
   == Image placement and sizing
 
@@ -130,18 +134,7 @@
   #image("img/transformer.png", height: 3cm)
   ```
 
-  #align(center)[
-    #rect(
-      fill: ufal-gray,
-      stroke: 1pt + ufal-orange,
-      width: 4cm,
-      height: 2cm,
-    )[
-      #align(center + horizon)[
-        #text(fill: ufal-orange, weight: "bold")[Image Placeholder]
-      ]
-    ]
-  ]
+  #image("img/transformer.png", height: 3cm)
 ]
 
 #slide[
@@ -184,8 +177,6 @@
 ]
 
 #slide(title: "Tables")[
-  _[source: Our experiments]_
-
   #align(center)[
     #table(
       columns: 4,
@@ -198,8 +189,11 @@
     )
   ]
 
-  - You can add a source link using _italic text_.
   - Tables automatically get proper styling.
+  - You can add source links using the `source-link` function (see bottom right).
+
+  // Add a source link - small and right-aligned
+  #source-link("https://example.com/our-experiments", display-text: "Our experiments")
 ]
 
 #slide(title: "Animated lists")[
