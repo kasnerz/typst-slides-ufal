@@ -79,7 +79,7 @@
   )
 
   set par(
-    leading: 0.65em,
+    leading: 0.9em,
     justify: false,
   )
 
@@ -87,50 +87,49 @@
   set heading(numbering: none)
 
   show heading.where(level: 1): it => {
-    v(0.8em)
-    set text(
-      size: 1.5em,
-      weight: "bold",
-      fill: ufal-orange,
-    )
-    it
-    v(0.6em)
-  }
-
-  show heading.where(level: 2): it => {
-    v(0.7em)
-    set text(
-      size: 1.2em,
-      weight: "bold",
-    )
-    it
-    v(0.5em)
-  }
-
-  show heading.where(level: 3): it => {
     v(0.6em)
     set text(
-      size: 1.1em,
+      size: 1.4em,
       weight: "bold",
     )
     it
     v(0.4em)
   }
 
-  show heading.where(level: 4): it => {
+  show heading.where(level: 2): it => {
     v(0.5em)
     set text(
-      size: 1em,
+      size: 1.3em,
       weight: "bold",
     )
     it
     v(0.3em)
   }
 
+  show heading.where(level: 3): it => {
+    v(0.4em)
+    set text(
+      size: 1.2em,
+      weight: "bold",
+    )
+    it
+    v(0.2em)
+  }
+
+  show heading.where(level: 4): it => {
+    v(0.3em)
+    set text(
+      size: 1em,
+      weight: "bold",
+    )
+    it
+    v(0.1em)
+  }
+
   // Code styling
   show raw: set text(
     font: font-mono,
-    size: 1.0em,
+    size: 1.25em,
     fill: text-color,
   )
 
@@ -142,14 +141,17 @@
   )
 
   // Link styling
-  show link: set text(fill: ufal-orange)
+  show link: it => {
+    set text(fill: ufal-orange)
+    underline(it, stroke: 2pt, offset: 0.2em)
+  }
 
-  // List styling - increase bullet size
-  set list(marker: text(size: 1.2em)[•])
+  set list(marker: (text(size: 1em)[●], text(size: 1em)[○], text(size: 0.7em)[□]))
 
   // Table styling
-  show table: set text(size: 13pt)
+  show table: set text(size: 1em)
   show table.cell.where(y: 0): set text(weight: "bold")
+  show table: set table(inset: 0.5em)
 
   // Page setup with header and footer
   set page(
@@ -279,13 +281,13 @@
       #if date != none [
         #rect(
           fill: ufal-gray,
-          inset: (x: 0.5em, y: 0.7em),
+          inset: (x: 0.5em, y: 0.5em),
           radius: 0.5em,
         )[
           #stack(
             dir: ltr,
             spacing: 0.5em,
-            image("img/calendar.svg", height: 0.8em),
+            image("img/calendar.svg", height: 0.7em),
             text(size: 18pt)[#date],
           )
         ]

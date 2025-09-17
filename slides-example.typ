@@ -22,18 +22,18 @@
 #part-slide("What is this?")
 
 #slide(title: "ÚFAL Typst Theme")[
-  #toolbox.side-by-side[
+  #toolbox.side-by-side(gutter: 3mm, columns: (2fr, 1.5fr))[
     === What is this?
 
-    - This slide deck is created in #link("https://polylux.dev/book/polylux.html")[Typst], a modern markup-based typesetting system.
+    - This slide deck is created with
+      *#link("https://polylux.dev/book/polylux.html")[Typst]* (a markup-based typesetting system) and *#link("https://polylux.dev/book/polylux.html")[Polylux]* (a Typst package adding some extra magic for slides).
 
     - It is styled with the `ufal.typ` template:
-      - Inspired by the ÚFAL #link("https://docs.google.com/presentation/d/1cE1fyaG9qWXJo5Upzi_i8mXMqUGbuYDgwqvHGYRgBSE/edit?usp=sharing")[Google Slides template] and Milan Straka's #link("https://github.com/ufal/slimd")[SliMD template].
-      - You can also contribute! 🫵
+      - Inspired by the #link("https://github.com/kasnerz/marp-ufal")[ÚFAL Marp template], which is in turn inspired by the #link("https://docs.google.com/presentation/d/1cE1fyaG9qWXJo5Upzi_i8mXMqUGbuYDgwqvHGYRgBSE/edit?usp=sharing")[ÚFAL Google Slides template] and Milan Straka's #link("https://github.com/ufal/slimd")[SliMD template].
       #v(1fr)
   ][
     #align(center + horizon)[
-      #image("img/typst_logo.svg", width: 40%)
+      #image("img/typst_logo.svg", width: 60%)
     ]
   ]
 ]
@@ -41,7 +41,7 @@
 #slide(title: "ÚFAL Typst Theme")[
   === Main features
 
-  #set list(marker: none)
+  #set list(marker: none, indent: -8pt)
   - 📝 *Easy editing*: Create slides in your favourite text editor with live preview.
   - 🔄 *Git-friendly*: You can version-control your presentations.
   - 🖲️ *Multiple export formats*: Export to PDF or PNG.
@@ -51,6 +51,40 @@
   - 🦶 *Auto footer*: No more manual copying of the bottom orange bar 💪
   - 🚀 *Modern framework*: Typst has excellent documentation and growing community.
 ]
+
+#slide(title: "Typst vs Marp ⚔️")[
+  _Should I use this template, or the Marp template?_
+
+  #text(size: 18pt)[
+    #align(center)[
+      #table(
+        columns: 3,
+        align: (left, left, left),
+        stroke: 0.5pt + gray,
+        table.header[*Feature*][*Typst*][*Marp*],
+
+        [*Syntax*], [Custom markup language], [#text(fill: gray)[Markdown-based]],
+
+        [*Advanced layout*], [Full programmatic control], [#text(fill: gray)[CSS themes]],
+
+        [*Output formats*], [PDF, PNG, SVG], [#text(fill: gray)[PDF, HTML, PNG, PPTX]],
+
+        [*Live preview*], [Multiple editor options], [#text(fill: gray)[VS Code extension]],
+
+        [*Performance*], [Very fast compilation], [#text(fill: gray)[Fast compilation]],
+
+        [*Collaboration*], [Git-friendly text files], [#text(fill: gray)[Git-friendly Markdown]],
+
+        [*Advanced layouts*], [Powerful layout system], [#text(fill: gray)[Limited (CSS grid/flexbox)]],
+
+        [*Package ecosystem*], [Growing (Typst packages)], [#text(fill: gray)[Mature (npm packages)]],
+
+        [*Best for*], [Complex layouts, Typography], [#text(fill: gray)[Quick slides, Markdown users]],
+      )
+    ]
+  ]
+]
+
 
 #part-slide("How to use it?")
 
