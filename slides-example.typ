@@ -197,46 +197,25 @@
 ]
 
 #slide(title: "Animated lists")[
-  #grid(
-    columns: (1fr, 1fr, 1fr),
-    gutter: 1em,
-    [
-      === How to animate lists
-      #uncover("2-")[
-        - This is a *bulleted list* 💣️
-        - How is that possible?
-        - Because we use Typst! 💡
-      ]
-    ],
-    [
-      #uncover("3-")[
-        + Similarly, this numbered list
-        + Can be animated in presentations
-        + Of course this works in PDF too
-      ]
-    ],
-    [
-      === Features
-      #uncover("4-")[
-        - Clean typography
-        - Easy markup
-        - Professional output
-      ]
-    ],
-  )
+  === How to animate lists
+  #item-by-item[
+    - first
+    - second
+    - third
+  ]
 ]
 
 #part-slide("Practical tips")
 
 #slide(title: "Development")[
-  == Typst editor support
 
+  === Live preview
   Use any text editor with Typst support for *live preview*:
   - VS Code with Typst LSP extension
   - Neovim with typst.vim
-  - Built-in Typst web app
+  - Online #link("https://typst.app")[Typst web app] (useful also for collaboration)
 
-  == Typst CLI compilation
+  === Compilation CLI
 
   ```bash
   $ typst compile slides.typ slides.pdf

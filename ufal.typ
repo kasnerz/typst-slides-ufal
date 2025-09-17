@@ -129,11 +129,23 @@
     v(0.1em)
   }
 
-  // Code styling
-  show raw: set text(
+  // Inline code: 1.3em makes Consolas approximately the same size as Fira Sans
+  show raw.where(block: false): set text(
+    font: font-mono,
+    size: 1.3em,
+    fill: text-color,
+  )
+
+  // Block code: 1em for better readability in code blocks
+  show raw.where(block: true): set text(
     font: font-mono,
     size: 1em,
     fill: text-color,
+  )
+
+  // Use custom tmTheme for syntax highlighting
+  set raw(
+    theme: "ufal-syntax.tmTheme",
   )
 
   show raw.where(block: true): block.with(
@@ -232,10 +244,13 @@
 
 // Override the default slide function to accept title parameter
 #let slide(title: none, body) = {
+  // Update the slide title state BEFORE creating the slide so the header
+  // reflects the current slide's title (avoids one-slide delay).
+  if title != none {
+    slide-title.update(title)
+  }
+
   polylux-slide[
-    #if title != none {
-      slide-title.update(title)
-    }
     #body
   ]
 }
