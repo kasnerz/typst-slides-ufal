@@ -137,16 +137,25 @@
   #image("img/transformer.png", height: 3cm)
 ]
 
-#slide[
-  #set page(header: none, footer: none, margin: 1.2cm)
+#blank-slide[
   #align(center + horizon)[
     == LaTeX typesetting
 
-    You can render both inline $cal(L)$ and separate equations:
+    You can render both inline math  and separate equations:
 
-    $$ cal(L)(theta) = sum_(i=1)^n log p(y_i | x_i, theta) - lambda ||theta||_2^2 $$
+    $cal(L)(theta) = sum_(i=1)^n log p(y_i | x_i, theta) - lambda ||theta||_2^2$
 
-    #text(size: 12pt, fill: muted-color)[This slide demonstrates mathematical typesetting.]
+
+    #v(20pt)
+
+    #warning[
+      #link("https://typst.app/docs/reference/math/")[Typst math syntax] is *different* from the LaTeX syntax.
+
+      Use this #link("https://qwinsi.github.io/tex2typst-webapp/")[online convertor] to convert your equations between these two.
+
+    ]
+
+    #text(size: 15pt, fill: muted-color)[This slide uses the `#blank-slide` class.]
   ]
 ]
 
@@ -164,8 +173,6 @@
             return n * factorial(n - 1)
     ```
   ][
-    Use `toolbox.side-by-side` for multiple columns.
-
     === Javascript code
 
     ```javascript
@@ -174,6 +181,8 @@
     }
     ```
   ]
+
+  #note[ Use `toolbox.side-by-side` to display content in multiple columns.]
 ]
 
 #slide(title: "Tables")[
@@ -211,7 +220,7 @@
 
   === Live preview
   Use any text editor with Typst support for *live preview*:
-  - VS Code with Typst LSP extension
+  - VS Code with the #link("https://marketplace.visualstudio.com/items?itemName=myriad-dreamin.tinymist")[Tinymist Typst extension]
   - Neovim with typst.vim
   - Online #link("https://typst.app")[Typst web app] (useful also for collaboration)
 

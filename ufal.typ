@@ -411,66 +411,78 @@
   #slide-title.update(title)
 ]
 
+// Blank slide (no header, no footer, custom margin)
+#let blank-slide(body) = slide[
+  #set page(header: none, footer: none, margin: 1.2cm)
+  #body
+]
+
 // ===== HELPER FUNCTIONS =====
 
-// Definition box
-#let definition(body) = {
-  rect(
-    fill: ufal-orange.lighten(90%),
-    stroke: 2pt + ufal-orange,
-    inset: 1em,
-    radius: 3pt,
+// Generic alert box
+#let alert(color: none, title: none, icon: none, body) = {
+  let title-text = if icon != none { [#icon #h(0.3em) #title] } else { title }
+  block(
     width: 100%,
+    inset: (left: 1.2em, right: 0.8em, top: 0.8em, bottom: 0.8em),
+    radius: 4pt,
+    fill: color.lighten(95%),
+    stroke: (left: (paint: color, thickness: 6pt)),
   )[
-    #text(weight: "bold", fill: ufal-orange)[Definition]
-    #v(0.5em)
+    #text(weight: "bold", fill: color)[#title-text]
+    #v(0.1em)
     #body
   ]
 }
 
-// Example box
-#let example(body) = {
-  rect(
-    fill: rgb("#e8f4fd"),
-    stroke: 2pt + rgb("#1f77b4"),
-    inset: 1em,
-    radius: 3pt,
-    width: 100%,
-  )[
-    #text(weight: "bold", fill: rgb("#1f77b4"))[Example]
-    #v(0.5em)
-    #body
-  ]
+// Note box (blue)
+#let note(body) = {
+  alert(
+    color: rgb("#1f77b4"),
+    title: "Note",
+    icon: "ℹ️",
+    body,
+  )
 }
 
-// Warning box
+// Tip box (green)
+#let tip(body) = {
+  alert(
+    color: rgb("#28a745"),
+    title: "Tip",
+    icon: "💡",
+    body,
+  )
+}
+
+// Important box (purple)
+#let important(body) = {
+  alert(
+    color: rgb("#6f42c1"),
+    title: "Important",
+    icon: "💬",
+    body,
+  )
+}
+
+// Warning box (orange/yellow)
 #let warning(body) = {
-  rect(
-    fill: rgb("#fff3cd"),
-    stroke: 2pt + rgb("#856404"),
-    inset: 1em,
-    radius: 3pt,
-    width: 100%,
-  )[
-    #text(weight: "bold", fill: rgb("#856404"))[⚠️ Warning]
-    #v(0.5em)
-    #body
-  ]
+  alert(
+    color: rgb("#856404"),
+    title: "Warning",
+    icon: "⚠️",
+    body,
+  )
 }
 
-// Info box
-#let info(body) = {
-  rect(
-    fill: rgb("#d1ecf1"),
-    stroke: 2pt + rgb("#0c5460"),
-    inset: 1em,
-    radius: 3pt,
-    width: 100%,
-  )[
-    #text(weight: "bold", fill: rgb("#0c5460"))[💡 Info]
-    #v(0.5em)
-    #body
-  ]
+// Caution box (red)
+#let caution(body) = {
+  alert(
+    color: rgb("#dc3545"),
+    title: "Caution",
+    icon: "⚠️",
+    body,
+  )
 }
 
 // Source link - small, right-aligned link for referencing sources
