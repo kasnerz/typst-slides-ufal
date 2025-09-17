@@ -25,23 +25,15 @@
   #toolbox.side-by-side[
     === What is this?
 
-    - This slide deck is created in *Typst*, a modern markup-based typesetting system.
+    - This slide deck is created in #link("https://polylux.dev/book/polylux.html")[Typst], a modern markup-based typesetting system.
 
     - It is styled with the `ufal.typ` template:
       - Inspired by the ÚFAL #link("https://docs.google.com/presentation/d/1cE1fyaG9qWXJo5Upzi_i8mXMqUGbuYDgwqvHGYRgBSE/edit?usp=sharing")[Google Slides template] and Milan Straka's #link("https://github.com/ufal/slimd")[SliMD template].
       - You can also contribute! 🫵
+      #v(1fr)
   ][
-    #align(center)[
-      #rect(
-        width: 6cm,
-        height: 4cm,
-        fill: ufal-gray,
-        stroke: 1pt + ufal-orange,
-      )[
-        #align(center + horizon)[
-          #text(size: 20pt, weight: "bold", fill: ufal-orange)[Typst Logo]
-        ]
-      ]
+    #align(center + horizon)[
+      #image("img/typst_logo.svg", width: 40%)
     ]
   ]
 ]
@@ -49,6 +41,7 @@
 #slide(title: "ÚFAL Typst Theme")[
   === Main features
 
+  #set list(marker: none)
   - 📝 *Easy editing*: Create slides in your favourite text editor with live preview.
   - 🔄 *Git-friendly*: You can version-control your presentations.
   - 🖲️ *Multiple export formats*: Export to PDF or PNG.
@@ -79,7 +72,7 @@
 ]
 
 #slide(title: "Slide layouts")[
-  This template uses Polylux, which provides various layout options:
+  This template uses #link("https://polylux.dev/book/polylux.html")[Polylux], which provides various layout options:
 
   - Use `#slide[content]` for regular slides
   - Use `#part-slide("title")` for section dividers

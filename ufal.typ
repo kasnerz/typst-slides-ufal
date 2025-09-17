@@ -48,7 +48,7 @@
       #stack(
         dir: ltr,
         spacing: 1fr,
-        pad(left: left-padding, top: top-padding)[
+        align(center + horizon)[
           #if title-text != none [
             #text(
               fill: ufal-orange,
@@ -74,7 +74,7 @@
   // Basic text styling
   set text(
     font: font-sans,
-    size: 15pt,
+    size: 20pt,
     fill: text-color,
   )
 
@@ -86,27 +86,52 @@
   // Heading styles
   set heading(numbering: none)
 
-  show heading.where(level: 1): set text(
-    size: 27pt,
-    weight: "bold",
-    fill: ufal-orange,
-  )
+  show heading.where(level: 1): it => {
+    v(0.8em)
+    set text(
+      size: 1.5em,
+      weight: "bold",
+      fill: ufal-orange,
+    )
+    it
+    v(0.6em)
+  }
 
-  show heading.where(level: 2): set text(
-    size: 21pt,
-    weight: "bold",
-  )
+  show heading.where(level: 2): it => {
+    v(0.7em)
+    set text(
+      size: 1.2em,
+      weight: "bold",
+    )
+    it
+    v(0.5em)
+  }
 
-  show heading.where(level: 3): set text(
-    size: 18.75pt,
-    weight: "bold",
-  )
+  show heading.where(level: 3): it => {
+    v(0.6em)
+    set text(
+      size: 1.1em,
+      weight: "bold",
+    )
+    it
+    v(0.4em)
+  }
+
+  show heading.where(level: 4): it => {
+    v(0.5em)
+    set text(
+      size: 1em,
+      weight: "bold",
+    )
+    it
+    v(0.3em)
+  }
 
   // Code styling
   show raw: set text(
     font: font-mono,
-    size: 11pt,
-    fill: rgb("#333333"),
+    size: 1.0em,
+    fill: text-color,
   )
 
   show raw.where(block: true): block.with(
@@ -118,6 +143,9 @@
 
   // Link styling
   show link: set text(fill: ufal-orange)
+
+  // List styling - increase bullet size
+  set list(marker: text(size: 1.2em)[•])
 
   // Table styling
   show table: set text(size: 13pt)
@@ -131,7 +159,7 @@
       #set align(left + top)
       #ufal-header-bar(
         title-text: toolbox.current-section,
-        title-size: 20pt,
+        title-size: 25pt,
         left-padding: 0.1cm,
         top-padding: 0.5cm,
         width: 100% + 2.4cm,
@@ -141,28 +169,40 @@
     ],
     footer: [
       #set align(left + bottom)
-      #place(
-        bottom + left,
-        dx: -1.2cm,
-        dy: 0cm,
-        rect(
-          width: 8cm,
-          height: 0.7cm,
-          fill: ufal-orange,
-          stroke: none,
-        )[
-          #align(left + horizon)[
-            #pad(left: 0.3cm)[
-              #text(
-                fill: rgb("#ffffff"),
-                size: 12pt,
-                weight: "bold",
-                font: font-sans,
-              )[#footer-content]
-            ]
-          ]
-        ],
-      )
+
+      // Only show footer if content is provided and not empty
+      #if footer-content != none and footer-content != "" [
+        #context [
+          #let footer-text = text(
+            fill: rgb("#ffffff"),
+            size: 12pt,
+            weight: "bold",
+            font: font-sans,
+          )[#footer-content]
+
+          // Measure the text width and add some padding, with a minimum width
+          #let text-width = measure(footer-text).width
+          #let footer-width = calc.max(text-width + 0.8cm, 7cm)
+
+          #place(
+            bottom + left,
+            dx: -1.2cm,
+            dy: 0cm,
+            rect(
+              width: footer-width,
+              height: 0.7cm,
+              fill: ufal-orange,
+              stroke: none,
+            )[
+              #align(left + horizon)[
+                #pad(left: 0.3cm)[
+                  #footer-text
+                ]
+              ]
+            ],
+          )
+        ]
+      ]
 
       // Pagination
       #place(
@@ -325,7 +365,7 @@
 
 // Part slide (section divider)
 #let part-slide(title) = slide[
-  #set page(header: none, footer: none, margin: 0pt)
+  #set page(header: none, footer: none, margin: 0pt, fill: ufal-gray)
   #set align(center + horizon)
 
   #rect(
@@ -337,7 +377,7 @@
     #align(center + horizon)[
       #text(
         fill: rgb("#ffffff"),
-        size: 22.5pt,
+        size: 25pt,
         weight: "bold",
         font: font-sans,
       )[#title]
