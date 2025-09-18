@@ -16,18 +16,15 @@
 #let font-mono = ("Consolas", "Liberation Mono")
 
 // ===== LOGOS =====
-#let ufal-logo = image("img/ufal.svg", width: 1.8cm)
+#let ufal-logo = image("img/ufal.svg", width: 1.2cm)
 #let ufal-logo-title = image("img/ufal.svg", width: 1.6cm)
 #let cuni-logo = image("img/cuni.svg", width: 4.5cm)
-#let langtech-logo = image("img/langtech.svg", width: 3.5cm)
-#let opvv-logo = image("img/opvv.svg", width: 4.2cm)
-#let cc-by-sa-logo = image("img/by-sa.svg", width: 3cm)
-#let cc-by-nc-sa-logo = image("img/by-nc-sa.eu.svg", width: 3cm)
+#let langtech-logo = image("img/langtech.svg", width: 1.8cm)
+#let opvv-logo = image("img/opvv.svg", width: 2.2cm)
+#let cc-by-sa-logo = image("img/by-sa.svg", width: 2.7cm)
+#let cc-by-nc-sa-logo = image("img/by-nc-sa.eu.svg", width: 2.7cm)
 
 // ===== SHARED COMPONENTS =====
-
-// State to track the current slide title
-#let slide-title = state("slide-title", none)
 
 /// Creates the UFAL header bar with title and logo
 /// Default settings are optimized for title slides
@@ -44,7 +41,7 @@
     dx: dx,
     rect(
       width: width,
-      height: 1.4cm,
+      height: 1.6cm,
       fill: ufal-gray,
       stroke: none,
     )[
@@ -62,7 +59,7 @@
           ]
         ],
         align(center + horizon)[
-          #scale(x: 55%, y: 55%, origin: center)[#ufal-logo]
+          #ufal-logo
         ],
       )
     ],
@@ -82,25 +79,18 @@
   )
 
   set par(
-    leading: 0.9em,
+    leading: 1em,
     justify: false,
   )
 
   // Heading styles
   set heading(numbering: none)
 
-  show heading.where(level: 1): it => {
-    v(0.6em)
-    set text(
-      size: 1.4em,
-      weight: "bold",
-    )
-    it
-    v(0.4em)
-  }
+  // Hide level-1 headings as they are used for slide titles
+  show heading.where(level: 1): none
 
   show heading.where(level: 2): it => {
-    v(0.5em)
+    v(0.4em)
     set text(
       size: 1.3em,
       weight: "bold",
@@ -110,7 +100,7 @@
   }
 
   show heading.where(level: 3): it => {
-    v(0.4em)
+    v(0.3em)
     set text(
       size: 1.2em,
       weight: "bold",
@@ -161,29 +151,40 @@
     underline(it, stroke: 2pt, offset: 0.2em)
   }
 
+  show hide: it => {
+    set list(marker: none)
+    set enum(numbering: n => none)
+
+    it
+  }
+
+  // Enhanced list spacing
+  show list: it => {
+    it
+    v(0.2em) // Additional space after each list
+  }
+
+  // Custom bullets
   set list(marker: (text(size: 1em)[●], text(size: 1em)[○], text(size: 0.7em)[□]))
 
   // Table styling
   show table: set text(size: 1em)
-  show table.cell.where(y: 0): set text(weight: "bold")
   show table: set table(inset: 0.5em)
 
   // Page setup with header and footer
   set page(
     paper: "presentation-16-9",
-    margin: (top: 2.2cm, bottom: 1.3cm, left: 1.2cm, right: 1.2cm),
+    margin: (top: 2.5cm, bottom: 1.3cm, left: 1.2cm, right: 1.2cm),
     header: [
       #set align(left + top)
-      #context [
-        #ufal-header-bar(
-          title-text: slide-title.get(),
-          title-size: 25pt,
-          left-padding: 0.1cm,
-          top-padding: 0.5cm,
-          width: 100% + 2.4cm,
-          dx: -1.2cm,
-        )
-      ]
+      #toolbox.next-heading(h => ufal-header-bar(
+        title-text: h,
+        title-size: 25pt,
+        left-padding: 0.1cm,
+        top-padding: 0.5cm,
+        width: 100% + 2.4cm,
+        dx: -1.2cm,
+      ))
       #v(-0.5cm)
     ],
     footer: [
@@ -226,13 +227,13 @@
       // Pagination
       #place(
         bottom + right,
-        dx: 0.5cm,
-        dy: 0.3cm,
+        dx: 0.9cm,
+        dy: -0.2cm,
         text(
           fill: text-color,
-          size: 10pt,
+          size: 12pt,
           font: font-sans,
-        )[#toolbox.slide-number],
+        )[#toolbox.slide-number/#toolbox.last-slide-number],
       )
     ],
   )
@@ -242,14 +243,8 @@
 
 // ===== SLIDE FUNCTIONS =====
 
-// Override the default slide function to accept title parameter
-#let slide(title: none, body) = {
-  // Update the slide title state BEFORE creating the slide so the header
-  // reflects the current slide's title (avoids one-slide delay).
-  if title != none {
-    slide-title.update(title)
-  }
-
+// Override the default slide function
+#let slide(body) = {
   polylux-slide[
     #body
   ]
@@ -267,51 +262,102 @@
     Faculty of Mathematics and Physics\
     Institute of Formal and Applied Linguistics
   ],
-  license-type: "cc-by-sa",
+  license-type: none,
   langtech: false,
+  body,
 ) = slide[
   #set page(header: none, footer: none, margin: 0cm)
 
   // Header with title
   #ufal-header-bar(title-text: title)
 
-  // Main content
+  // Main content - use columns if body content is provided
   #pad(top: 3.65cm, left: 1.2cm, right: 1.2cm)[
-    #if name != none [
-      #text(
-        size: 38pt,
-        weight: "bold",
-        fill: ufal-orange,
-      )[#name]
-      #v(-0.5cm)
-    ]
+    #if body != [] and body != none [
+      // Two-column layout when body content is provided
+      #grid(
+        columns: (1fr, 1fr),
+        column-gutter: 2em,
+        // Left column: title information
+        [
+          #if name != none [
+            #text(
+              size: 38pt,
+              weight: "bold",
+              fill: ufal-orange,
+            )[#name]
+            #v(-0.5cm)
+          ]
 
-    #if subtitle != none [
-      #text(size: 25pt)[#subtitle]
-      #v(0.5cm)
-    ]
+          #if subtitle != none [
+            #text(size: 25pt)[#subtitle]
+            #v(0.5cm)
+          ]
 
-    // Author and date
-    #place(
-      bottom,
-      dy: 5.5cm,
-    )[
-      #if author != none [
-        #text(size: 22pt, weight: "semibold")[#author]
+          // Author and date in left column (maintain original spacing)
+          #if author != none [
+            #v(1.8cm)
+            #text(size: 22pt, weight: "semibold")[#author]
+          ]
+
+          #if date != none [
+            #rect(
+              fill: ufal-gray,
+              inset: (x: 0.5em, y: 0.5em),
+              radius: 0.5em,
+            )[
+              #stack(
+                dir: ltr,
+                spacing: 0.5em,
+                image("img/calendar.svg", height: 0.7em),
+                text(size: 18pt)[#date],
+              )
+            ]
+          ]
+        ],
+        // Right column: body content
+        [
+          #body
+        ],
+      )
+    ] else [
+      // Original single-column layout when no body content
+      #if name != none [
+        #text(
+          size: 38pt,
+          weight: "bold",
+          fill: ufal-orange,
+        )[#name]
+        #v(-0.5cm)
       ]
 
-      #if date != none [
-        #rect(
-          fill: ufal-gray,
-          inset: (x: 0.5em, y: 0.5em),
-          radius: 0.5em,
-        )[
-          #stack(
-            dir: ltr,
-            spacing: 0.5em,
-            image("img/calendar.svg", height: 0.7em),
-            text(size: 18pt)[#date],
-          )
+      #if subtitle != none [
+        #text(size: 25pt)[#subtitle]
+        #v(0.5cm)
+      ]
+
+      // Author and date
+      #place(
+        bottom,
+        dy: 5.5cm,
+      )[
+        #if author != none [
+          #text(size: 22pt, weight: "semibold")[#author]
+        ]
+
+        #if date != none [
+          #rect(
+            fill: ufal-gray,
+            inset: (x: 0.5em, y: 0.5em),
+            radius: 0.5em,
+          )[
+            #stack(
+              dir: ltr,
+              spacing: 0.5em,
+              image("img/calendar.svg", height: 0.7em),
+              text(size: 18pt)[#date],
+            )
+          ]
         ]
       ]
     ]
@@ -338,17 +384,20 @@
 
       #place(
         left + horizon,
-        dx: 11.5cm,
-        text(size: 10pt)[#institution],
+        dx: 15.5cm,
+        text(size: 10pt)[
+          #set par(leading: 0.8em)
+          #institution
+        ],
       )
 
       #if langtech [
         #place(
           left + horizon,
-          dx: 12cm,
+          dx: 7cm,
           stack(
             dir: ltr,
-            spacing: 0.3cm,
+            spacing: 0.8cm,
             langtech-logo,
             opvv-logo,
           ),
@@ -387,6 +436,79 @@
   )
 ]
 
+// Summary slide
+#let summary-slide(
+  title: none,
+  subtitle: none,
+  link: none,
+  body,
+) = slide[
+  #set page(header: none, footer: none, margin: 0cm, fill: ufal-gray)
+  #set align(center + horizon)
+
+  // White content rectangle with title and subtitle positioned relative to it
+  #place(center + horizon, dy: 0cm)[
+    #stack(
+      dir: ttb,
+      spacing: 1cm,
+      // Title and subtitle above the rectangle
+      {
+        stack(
+          dir: ttb,
+          spacing: 0.5cm,
+          // Subtitle box
+          if subtitle != none {
+            rect(
+              fill: ufal-orange,
+              inset: (x: 2.5cm, y: 0.3cm),
+              radius: 0pt,
+            )[
+              #align(center)[
+                #text(
+                  fill: rgb("#ffffff"),
+                  size: 14pt,
+                  weight: "bold",
+                  font: font-sans,
+                )[#subtitle]
+              ]
+            ]
+          },
+          v(30pt),
+          // Main title
+          if title != none {
+            text(
+              size: 28pt,
+              weight: "bold",
+              fill: ufal-orange,
+              font: font-sans,
+            )[#title]
+          },
+        )
+      },
+      // White content rectangle
+      rect(
+        width: 24cm,
+        fill: rgb("#ffffff"),
+        stroke: 0.15cm + ufal-orange,
+        inset: (x: 1cm, y: 1cm),
+        radius: 0pt,
+      )[
+        #set align(left)
+        #body
+      ],
+      // Link positioned below the rectangle
+      if link != none {
+        text(
+          size: 18pt,
+          weight: "semibold",
+          fill: ufal-orange,
+          font: font-mono,
+        )[#link]
+      },
+    )
+  ]
+]
+
 // Part slide (section divider)
 #let part-slide(title) = slide[
   #set page(header: none, footer: none, margin: 0pt, fill: ufal-gray)
@@ -407,8 +529,6 @@
       )[#title]
     ]
   ]
-
-  #slide-title.update(title)
 ]
 
 // Blank slide (no header, no footer, custom margin)
@@ -419,79 +539,32 @@
 
 // ===== HELPER FUNCTIONS =====
 
-// Generic alert box
-#let alert(color: none, title: none, icon: none, body) = {
-  let title-text = if icon != none { [#icon #h(0.3em) #title] } else { title }
+#let inline-image(path) = box(image(path, height: 01em), baseline: 10%, inset: (right: 0.2em))
+
+// Info box with customizable heading and content
+#let infobox(title: none, icon: none, body) = {
+  let title-text = if icon != none { [#icon #h(0.1em) #title] } else { title }
   block(
     width: 100%,
     inset: (left: 1.2em, right: 0.8em, top: 0.8em, bottom: 0.8em),
     radius: 4pt,
-    fill: color.lighten(95%),
-    stroke: (left: (paint: color, thickness: 6pt)),
+    fill: ufal-orange.lighten(95%),
+    stroke: (left: (paint: ufal-orange, thickness: 6pt)),
   )[
-    #text(weight: "bold", fill: color)[#title-text]
-    #v(0.1em)
+    #if title != none [
+      #text(weight: "bold", fill: ufal-orange)[#title-text]
+      #v(-0.1em)
+    ]
     #body
   ]
-}
-
-// Note box (blue)
-#let note(body) = {
-  alert(
-    color: rgb("#1f77b4"),
-    title: "Note",
-    icon: "ℹ️",
-    body,
-  )
-}
-
-// Tip box (green)
-#let tip(body) = {
-  alert(
-    color: rgb("#28a745"),
-    title: "Tip",
-    icon: "💡",
-    body,
-  )
-}
-
-// Important box (purple)
-#let important(body) = {
-  alert(
-    color: rgb("#6f42c1"),
-    title: "Important",
-    icon: "💬",
-    body,
-  )
-}
-
-// Warning box (orange/yellow)
-#let warning(body) = {
-  alert(
-    color: rgb("#856404"),
-    title: "Warning",
-    icon: "⚠️",
-    body,
-  )
-}
-
-// Caution box (red)
-#let caution(body) = {
-  alert(
-    color: rgb("#dc3545"),
-    title: "Caution",
-    icon: "⚠️",
-    body,
-  )
 }
 
 // Source link - small, right-aligned link for referencing sources
 #let source-link(url, display-text: none) = {
   let link-text = if display-text != none { "source: " + display-text } else { url }
 
-  place(
-    bottom + right,
-    dy: -0.3cm,
+  align(
+    right,
     text(
       size: 10pt,
       fill: muted-color,
