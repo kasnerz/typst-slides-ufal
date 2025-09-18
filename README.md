@@ -7,8 +7,6 @@ Inspired by  Jindřich Libovický's [ÚFAL Google Slides template](https://docs.
 See also 👉️ **[ÚFAL Marp template](https://github.com/kasnerz/marp-ufal)**.
 
 <img src="img/typst_logo.svg" width="200px"/>
-<br>
-<br>
 <p>
 <img src="img/title.png" width="300px"/>
 <img src="img/layouts.png" width="300px"/>
