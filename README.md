@@ -33,7 +33,7 @@ Should I use the **Typst template** (this one) or the [Marp template](https://gi
 | ----------------------------------- | ------------------------------------- |
 | ✅ Nicer markup language             | ✅ Simpler markup language             |
 | ✅ More powerful layout handling     | ✅ Interactive content (video, audio)  |
-| ✅ Online collaboration              | ❌ Need to use HTML for advanced stuff |
+| ✅ [Online collaboration](https://typst.app/project/rPhpYPfMtluukEMM7M66FF)              | ❌ Need to use HTML for advanced stuff |
 | ❌ PDF-only - no interactive content |                                       |
 
 ## Quickstart
