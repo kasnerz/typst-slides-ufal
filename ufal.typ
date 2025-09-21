@@ -658,10 +658,10 @@
 // ===== HELPER FUNCTIONS =====
 
 
-#let box(img) = {
+#let box(img, padding: 0pt) = {
   block(
     stroke: 1pt + rgb("#828282"),
-    inset: 0pt,
+    inset: padding,
     radius: 0pt,
   )[
     #img
