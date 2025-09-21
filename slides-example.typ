@@ -14,7 +14,7 @@
   langtech: false,
 )[]
 
-#part-slide("What is this?")
+#section-slide("What is this?")
 
 #slide[
   = What is this?
@@ -70,7 +70,7 @@
 ]
 
 
-#part-slide("How to use it?")
+#section-slide("How to use it?")
 
 #slide[
   = Typst syntax 101
@@ -98,7 +98,7 @@
   This template uses #link("https://polylux.dev/book/polylux.html")[Polylux], which provides various layout options:
 
   - Use `#slide[content]` for regular slides
-  - Use `#title-slide`, `#part-slide`, and `#summary-slide` for special layouts.
+  - Use `#title-slide`, `#section-slide`, and `#summary-slide` for special layouts.
   - Use `toolbox.side-by-side` for two-column layouts.
 
   #infobox(title: "Tip", icon: "💡")[
@@ -233,7 +233,7 @@
 
 ]
 
-#part-slide("Practical tips")
+#section-slide("Practical tips")
 
 #slide[
   = Development

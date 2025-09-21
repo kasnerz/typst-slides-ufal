@@ -510,15 +510,19 @@
 ]
 
 // Part slide (section divider)
-#let part-slide(title) = slide[
+#let section-slide(section: none, body) = slide[
   #set page(header: none, footer: none, margin: 0pt, fill: ufal-gray)
   #set align(center + horizon)
 
+  #if section != none [
+    #toolbox.register-section[#section]
+  ]
+
   #rect(
     width: 20cm,
-    height: 2cm,
     fill: ufal-orange,
     radius: 0pt,
+    inset: (x: 1cm, y: 0.8cm),
   )[
     #align(center + horizon)[
       #text(
@@ -526,7 +530,7 @@
         size: 25pt,
         weight: "bold",
         font: font-sans,
-      )[#title]
+      )[#body]
     ]
   ]
 ]

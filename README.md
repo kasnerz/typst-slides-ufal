@@ -90,7 +90,7 @@ Should I use the **Typst template** (this one) or the [Marp template](https://gi
 ## Slide types
 
 - `title-slide` - Title slide with ÚFAL branding
-- `part-slide` - Section divider slides
+- `section-slide` - Section divider slides
 - `summary-slide` - Final slide with boxed content
 - `blank-slide` - Clean layout without header/footer
 
@@ -116,7 +116,7 @@ Should I use the **Typst template** (this one) or the [Marp template](https://gi
 )
 
 // Section divider
-#part-slide("Section Title")
+#section-slide("Section Title")
 
 // Regular slide
 #slide[
