@@ -7,8 +7,6 @@ Inspired by  Jindřich Libovický's [ÚFAL Google Slides template](https://docs.
 See also 👉️ **[ÚFAL Marp template](https://github.com/kasnerz/marp-ufal)**.
 
 <img src="img/typst_logo.svg" width="200px"/>
-<br>
-<br>
 <p>
 <img src="img/title.png" width="300px"/>
 <img src="img/layouts.png" width="300px"/>
@@ -35,7 +33,7 @@ Should I use the **Typst template** (this one) or the [Marp template](https://gi
 | ----------------------------------- | ------------------------------------- |
 | ✅ Nicer markup language             | ✅ Simpler markup language             |
 | ✅ More powerful layout handling     | ✅ Interactive content (video, audio)  |
-| ✅ Online collaboration              | ❌ Need to use HTML for advanced stuff |
+| ✅ [Online collaboration](https://typst.app/project/rPhpYPfMtluukEMM7M66FF)              | ❌ Need to use HTML for advanced stuff |
 | ❌ PDF-only - no interactive content |                                       |
 
 ## Quickstart
