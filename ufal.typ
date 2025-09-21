@@ -695,17 +695,50 @@
 }
 
 // Source link - small, right-aligned link for referencing sources
-#let source-link(url, display-text: none) = {
-  let link-text = if display-text != none { "source: " + display-text } else { url }
+#let source(url, title: none) = {
+  let link-text = if title != none { "source: " + title } else { "source: " + url }
 
   align(
     right,
     text(
-      size: 10pt,
+      size: 12pt,
       fill: muted-color,
       font: font-sans,
     )[
       #link(url)[#link-text]
     ],
   )
+}
+
+// Source slide - positions source link in top-right corner of slide
+#let source-slide(url, title: none) = {
+  let link-text = if title != none { "source: " + title } else { url }
+
+  place(
+    top + right,
+    dx: -1.2cm,
+    dy: -1.85cm,
+    text(
+      size: 12pt,
+      fill: muted-color,
+      font: font-sans,
+    )[
+      #link(url)[#link-text]
+    ],
+  )
+}
+
+// Todo box - styled placeholder for unfinished content
+#let todo(content) = {
+  block(
+    width: 100%,
+    inset: (left: 1.2em, right: 0.8em, top: 0.8em, bottom: 0.8em),
+    radius: 4pt,
+    fill: ufal-gray,
+    stroke: (left: (paint: ufal-orange, thickness: 6pt)),
+  )[
+    #text(weight: "bold", fill: ufal-orange)[TODO]
+    #v(-0.1em)
+    #text(fill: text-color)[#content]
+  ]
 }
