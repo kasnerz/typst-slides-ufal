@@ -26,6 +26,68 @@
 
 // ===== SHARED COMPONENTS =====
 
+/// Creates a sections band showing all sections with current section highlighted
+/// Returns empty content if no sections are registered
+#let sections-band = toolbox.all-sections((sections, current) => {
+  if sections.len() == 0 {
+    []
+  } else {
+    // Neutralize all link styling within the sections band
+    show link: it => it.body
+    set text(size: 10pt, font: font-sans)
+    sections
+      .map(s => if s == current {
+        text(fill: rgb("#3e3e3e"), weight: "regular")[#s]
+      } else {
+        text(fill: muted-color, weight: "regular")[#s]
+      })
+      .join(text(fill: muted-color)[ #h(5pt) • #h(5pt) ])
+  }
+})
+
+/// Creates an animated outline of all registered sections
+/// Each section appears as a numbered box with orange styling
+/// Returns empty content if no sections are registered
+#let outline = toolbox.all-sections((sections, current) => {
+  if sections.len() == 0 {
+    []
+  } else {
+    show link: it => it.body
+    stack(
+      dir: ttb,
+      spacing: 0.8em,
+      ..sections
+        .enumerate()
+        .map(((i, section)) => {
+          block(
+            width: 100%,
+            // inset: (left: 1.2em, right: 0.8em, top: 0.8em, bottom: 0.8em),
+            // radius: 4pt,
+            // fill: ufal-gray,
+            // stroke: (left: (paint: ufal-orange, thickness: 6pt)),
+          )[
+            #stack(
+              dir: ltr,
+              spacing: 0.5em,
+              text(
+                size: 1.1em,
+                // weight: "semibold",
+                fill: text-color,
+                font: font-sans,
+              )[#(i + 1).],
+              text(
+                size: 1.1em,
+                // weight: "semibold",
+                fill: text-color,
+                font: font-sans,
+              )[#section],
+            )
+          ]
+        }),
+    )
+  }
+})
+
 /// Creates the UFAL header bar with title and logo
 /// Default settings are optimized for title slides
 #let ufal-header-bar(
@@ -222,6 +284,37 @@
             ],
           )
         ]
+      ]
+
+      // Sections band (left-aligned with footer bar)
+      #if footer-content != none and footer-content != "" [
+        #context [
+          #let footer-text = text(
+            fill: rgb("#ffffff"),
+            size: 12pt,
+            weight: "bold",
+            font: font-sans,
+          )[#footer-content]
+
+          // Calculate footer width to position sections band
+          #let text-width = measure(footer-text).width
+          #let footer-width = calc.max(text-width + 0.8cm, 7cm)
+
+          #place(
+            bottom + left,
+            dx: -1.2cm + footer-width + 0.5cm,
+            dy: -0.2cm,
+            sections-band,
+          )
+        ]
+      ] else [
+        // If no footer content, position at left with small padding
+        #place(
+          bottom + left,
+          dx: 0.3cm,
+          dy: -0.2cm,
+          sections-band,
+        )
       ]
 
       // Pagination
