@@ -657,6 +657,16 @@
 
 // ===== HELPER FUNCTIONS =====
 
+
+#let box(img) = {
+  block(
+    stroke: 1pt + rgb("#828282"),
+    inset: 0pt,
+    radius: 0pt,
+  )[
+    #img
+  ]
+}
 #let inline-image(path) = box(image(path, height: 01em), baseline: 10%, inset: (right: 0.2em))
 
 // Info box with customizable heading and content
