@@ -687,6 +687,13 @@
   ]
 }
 
+// Vertically center content using flexible spacing
+#let halign(body) = {
+  v(1fr)
+  body
+  v(1fr)
+}
+
 // Source link - small, right-aligned link for referencing sources
 #let source-link(url, display-text: none) = {
   let link-text = if display-text != none { "source: " + display-text } else { url }
