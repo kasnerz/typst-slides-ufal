@@ -220,6 +220,27 @@
     it
   }
 
+  show quote: it => {
+    block(
+      width: 100%,
+      inset: (left: 1.0em, right: 0.8em, top: 0.5em, bottom: 0.5em),
+      radius: 0pt,
+      stroke: (left: (paint: ufal-orange, thickness: 6pt)),
+    )[
+      #set text(size: 0.9em, fill: rgb("#3c3c3c"))
+      #it.body
+
+      // Show attribution if present
+      #if it.attribution != none [
+        #align(right)[
+          #text(size: 0.8em, style: "italic", fill: muted-color)[
+            — #it.attribution
+          ]
+        ]
+      ]
+    ]
+  }
+
   // Enhanced list spacing
   show list: it => {
     it
