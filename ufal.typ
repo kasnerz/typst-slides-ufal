@@ -712,7 +712,7 @@
 
 // Source slide - positions source link in top-right corner of slide
 #let source-slide(url, title: none) = {
-  let link-text = if title != none { "source: " + title } else { url }
+  let link-text = if title != none { "source: " + title } else { "source: " + url }
 
   place(
     top + right,
