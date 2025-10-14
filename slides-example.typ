@@ -38,7 +38,7 @@
 
   #set list(marker: none, indent: -8pt)
   - 📝 *Easy editing*: Create slides in your favourite text editor with live preview.
-  - #inline-image("img/github.svg") *Git-friendly*: You can version-control your presentations.
+  - #inline_image("img/github.svg") *Git-friendly*: You can version-control your presentations.
   - 🖲️ *Multiple export formats*: Export to PDF or PNG.
   - 🪧 *LaTeX support*: Mathematical typesetting with native Typst math.
   - ⚡️ *Advanced typography*: Use Typst's powerful layout system.

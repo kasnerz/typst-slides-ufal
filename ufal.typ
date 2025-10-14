@@ -667,7 +667,7 @@
     #img
   ]
 }
-#let inline-image(path) = box(image(path, height: 01em), baseline: 10%, inset: (right: 0.2em))
+#let inline_image(path) = box(image(path, height: 01em), baseline: 10%, inset: (right: 0.2em))
 
 // Info box with customizable heading and content
 #let infobox(title: none, icon: none, body) = {
