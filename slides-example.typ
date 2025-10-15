@@ -38,7 +38,7 @@
 
   #set list(marker: none, indent: -8pt)
   - 📝 *Easy editing*: Create slides in your favourite text editor with live preview.
-  - #inline_image("img/github.svg") *Git-friendly*: You can version-control your presentations.
+  - #inline-image("img/github.svg") *Git-friendly*: You can version-control your presentations.
   - 🖲️ *Multiple export formats*: Export to PDF or PNG.
   - 🪧 *LaTeX support*: Mathematical typesetting with native Typst math.
   - ⚡️ *Advanced typography*: Use Typst's powerful layout system.
@@ -198,7 +198,7 @@
   - You can add source links using the `source-link` function.
 
   // Add a source link - small and right-aligned
-  #source-link("https://example.com/our-experiments", display-text: "Our experiments")
+  #source-slide("https://example.com/our-experiments", title: "Our experiments")
 ]
 
 #slide[

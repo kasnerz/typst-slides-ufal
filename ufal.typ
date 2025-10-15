@@ -658,7 +658,7 @@
 // ===== HELPER FUNCTIONS =====
 
 
-#let box(img, padding: 0pt) = {
+#let bordered-box(img, padding: 0pt) = {
   block(
     stroke: 1pt + rgb("#828282"),
     inset: padding,
@@ -667,7 +667,7 @@
     #img
   ]
 }
-#let inline_image(path) = box(image(path, height: 01em), baseline: 10%, inset: (right: 0.2em))
+#let inline-image(path) = box(image(path, height: 01em), baseline: 10%, inset: (right: 0.2em))
 
 // Info box with customizable heading and content
 #let infobox(title: none, icon: none, body) = {
