@@ -227,7 +227,7 @@
       radius: 0pt,
       stroke: (left: (paint: ufal-orange, thickness: 6pt)),
     )[
-      #set text(size: 0.9em, fill: rgb("#3c3c3c"))
+      #set text(size: 0.9em, fill: rgb("#3c3c3c"), style: "italic")
       #it.body
 
       // Show attribution if present
@@ -670,7 +670,19 @@
 #let inline-image(path) = box(image(path, height: 01em), baseline: 10%, inset: (right: 0.2em))
 
 // Info box with customizable heading and content
-#let infobox(title: none, icon: none, body) = {
+#let infobox(..args) = {
+  let pos = args.pos()
+  let named = args.named()
+  let title = if "title" in named {
+    named.title
+  } else if pos.len() > 1 {
+    pos.at(0)
+  } else {
+    "Info"
+  }
+  let body = pos.last()
+  let icon = named.at("icon", default: none)
+
   let title-text = if icon != none { [#icon #h(0.1em) #title] } else { title }
   block(
     width: 100%,
@@ -680,9 +692,75 @@
     stroke: (left: (paint: ufal-orange, thickness: 6pt)),
   )[
     #if title != none [
+      #set par(leading: 0.65em)
       #text(weight: "bold", fill: ufal-orange)[#title-text]
       #v(-0.1em)
     ]
+    #body
+  ]
+}
+
+#let warnbox(title: none, body) = {
+  let title-text = [⚠ #h(0.1em) #title]
+  block(
+    width: 100%,
+    inset: (left: 1.2em, right: 0.8em, top: 0.8em, bottom: 0.8em),
+    radius: 4pt,
+    fill: rgb("#dab307").lighten(90%),
+    stroke: (left: (paint: rgb("#dab307"), thickness: 6pt)),
+  )[
+    #if title != none [
+      #text(weight: "bold", fill: rgb("#dab307"))[#title-text]
+      #v(-0.1em)
+    ]
+    #body
+  ]
+}
+
+#let questionbox(..args) = {
+  let pos = args.pos()
+  let named = args.named()
+  let title = if "title" in named {
+    named.title
+  } else if pos.len() > 1 {
+    pos.at(0)
+  } else {
+    "Question"
+  }
+  let body = pos.last()
+  block(
+    width: 100%,
+    inset: (left: 1.2em, right: 0.8em, top: 0.8em, bottom: 0.8em),
+    radius: 4pt,
+    fill: rgb("#511299").lighten(90%),
+    stroke: (left: (paint: rgb("#511299"), thickness: 6pt)),
+  )[
+    #text(weight: "bold", fill: rgb("#511299"))[#title]
+    #v(-0.1em)
+    #body
+  ]
+}
+
+#let ideabox(..args) = {
+  let pos = args.pos()
+  let named = args.named()
+  let title = if "title" in named {
+    named.title
+  } else if pos.len() > 1 {
+    pos.at(0)
+  } else {
+    "Idea"
+  }
+  let body = pos.last()
+  block(
+    width: 100%,
+    inset: (left: 1.2em, right: 0.8em, top: 0.8em, bottom: 0.8em),
+    radius: 4pt,
+    fill: rgb("#7a9912").lighten(90%),
+    stroke: (left: (paint: rgb("#7a9912"), thickness: 6pt)),
+  )[
+    #text(weight: "bold", fill: rgb("#7a9912"))[#title]
+    #v(-0.1em)
     #body
   ]
 }
